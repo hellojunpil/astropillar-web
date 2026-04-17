@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>AstroPillar — Your Cosmic Identity</title>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NSTDRL3GJN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-NSTDRL3GJN');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:100%; overflow-x:hidden; }
+body {
+  font-family:'Noto Sans KR',sans-serif;
+  background:#07071a; color:#F6F6F8; min-height:100vh;
+}
+
+/* ── 페이드 전환 ── */
+.view { display:none; min-height:100vh; flex-direction:column; opacity:0; transition:opacity 0.35s ease; }
+.view.active { display:flex; }
+.view.visible { opacity:1; }
+
+/* ══════════════════════════════
+   VIEW 1 : INDEX
+══════════════════════════════ */
+#v1 {
+  position:relative; min-height:100vh;
+  background:url('https://raw.githubusercontent.com/hellojunpil/astropillar_images/main/screen.png') center top/cover no-repeat;
+  justify-content:center; align-items:center;
+}
+#v1 .overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to bottom,
+    rgba(7,7,26,.50) 0%,
+    rgba(7,7,26,.62) 40%,
+    rgba(7,7,26,.90) 75%,
+    rgba(7,7,26,.97) 100%);
+}
+.topbar {
+  position:fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:16px 22px;
+  background:linear-gradient(to bottom,rgba(7,7,26,.65),transparent);
+}
+.logo { color:#C9A84C; font-size:13px; font-weight:900; letter-spacing:2.5px; }
+.signin-btn {
+  background:transparent; border:1.5px solid #C9A84C; color:#C9A84C;
+  font-family:'Noto Sans KR',sans-serif; font-size:11px; font-weight:700;
+  padding:6px 14px; border-radius:20px; cursor:pointer;
+}
+.signin-btn:active { background:#C9A84C; color:#16213E; }
+
+#v1 .inner {
+  position:relative; z-index:1;
+  width:100%; max-width:390px; margin:0 auto;
+  padding:80px 28px 60px;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  min-height:100vh;
+}
+.eyebrow { color:rgba(201,168,76,.75); font-size:9px; letter-spacing:4px; margin-bottom:20px; font-weight:400; text-align:center; }
+.hero-copy { font-size:22px; font-weight:400; line-height:1.7; color:rgba(240,235,255,.9); margin-bottom:8px; text-align:center; }
+.hero-copy span { color:#C9A84C; font-weight:700; }
+.hero-sub { font-size:12px; color:rgba(200,195,220,.5); margin-bottom:32px; font-weight:300; text-align:center; }
+.free-badge { font-size:11px; color:rgba(201,168,76,.9); margin-bottom:16px; font-weight:500; text-align:center; display:block; }
+.cta-main {
+  width:100%; background:#C9A84C; color:#16213E;
+  font-family:'Noto Sans KR',sans-serif; font-size:15px; font-weight:700;
+  padding:16px; border-radius:50px; border:none; cursor:pointer;
+  display:block; text-align:center; transition:transform .1s;
+}
+.cta-main:active { transform:scale(0.98); }
+.cta-sub {
+  margin-top:14px; font-size:12px; color:rgba(201,168,76,.75); cursor:pointer;
+  text-decoration:underline; text-underline-offset:3px;
+  background:none; border:none; font-family:'Noto Sans KR',sans-serif;
+  font-weight:400; display:block; width:100%; text-align:center;
+}
+.cta-note { margin-top:12px; font-size:11px; color:rgba(200,195,220,.35); font-weight:300; text-align:center; }
+
+/* ══════════════════════════════
+   VIEW 2 : FORM
+══════════════════════════════ */
+#v2 { background:#07071a; }
+.form-wrap { max-width:390px; margin:0 auto; width:100%; }
+.form-header { background:linear-gradient(to bottom,#0d0d2b,#07071a); padding:20px 20px 16px; border-bottom:1px solid rgba(201,168,76,.15); }
+.back-btn { background:none; border:none; color:rgba(201,168,76,.7); font-family:'Noto Sans KR',sans-serif; font-size:13px; cursor:pointer; padding:0; margin-bottom:14px; display:block; }
+.step-bar { display:flex; align-items:center; gap:6px; margin-bottom:14px; }
+.step-seg { height:3px; flex:1; border-radius:2px; }
+.step-seg.on  { background:#C9A84C; }
+.step-seg.off { background:rgba(201,168,76,.22); }
+.step-label { font-size:10px; color:rgba(201,168,76,.6); letter-spacing:1.2px; white-space:nowrap; font-weight:400; }
+.form-title { font-size:18px; font-weight:700; margin-bottom:4px; }
+.form-sub { font-size:12px; color:rgba(200,195,220,.5); font-weight:300; }
+.form-body { padding:20px; flex:1; }
+.field { margin-bottom:16px; }
+.field label { display:block; font-size:11px; font-weight:700; color:#C9A84C; letter-spacing:1.5px; margin-bottom:7px; }
+.field input, .field select {
+  width:100%; background:rgba(255,255,255,.05);
+  border:1.5px solid rgba(201,168,76,.3); border-radius:10px;
+  padding:13px 14px; color:#F6F6F8;
+  font-family:'Noto Sans KR',sans-serif; font-size:14px; outline:none;
+  appearance:none; -webkit-appearance:none;
+}
+.field input:focus, .field select:focus { border-color:#C9A84C; background:rgba(201,168,76,.06); }
+.field input::placeholder { color:rgba(200,195,220,.3); }
+.field select option { background:#16213E; color:#F6F6F8; }
+.gender-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.gender-btn {
+  padding:13px; border-radius:10px; border:1.5px solid rgba(201,168,76,.3);
+  background:rgba(255,255,255,.04); color:rgba(200,195,220,.6);
+  font-family:'Noto Sans KR',sans-serif; font-size:13px; font-weight:500;
+  cursor:pointer; text-align:center; transition:all .2s;
+}
+.gender-btn.selected { background:rgba(201,168,76,.15); border-color:#C9A84C; color:#C9A84C; }
+.date-row { display:grid; grid-template-columns:2fr 2.2fr 1.3fr; gap:8px; }
+.cta-main-form {
+  width:100%; background:#C9A84C; color:#16213E;
+  font-family:'Noto Sans KR',sans-serif; font-size:15px; font-weight:700;
+  padding:16px; border-radius:50px; border:none; cursor:pointer;
+  margin-top:10px; display:block;
+}
+.privacy-lock {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  background:rgba(201,168,76,.1);
+  border:1.5px solid rgba(201,168,76,.4);
+  border-radius:12px;
+  padding:14px 16px;
+  margin-top:16px;
+  font-size:14px;
+  font-weight:600;
+  color:#C9A84C;
+  letter-spacing:0.3px;
+  box-shadow:0 0 20px rgba(201,168,76,.1);
+  text-align:center;
+}
+.privacy-lock .lock-icon { font-size:18px; flex-shrink:0; }
+.privacy-note { text-align:center; font-size:11px; color:rgba(200,195,220,.35); margin-top:10px; line-height:1.6; font-weight:300; }
+
+/* ══════════════════════════════
+   VIEW 3 : RESULT
+══════════════════════════════ */
+#v3 { background:#07071a; }
+.result-wrap { max-width:390px; margin:0 auto; width:100%; }
+.result-hero { background:linear-gradient(135deg,#0d0d2b 0%,#16213E 100%); padding:28px 20px; text-align:center; border-bottom:1px solid rgba(201,168,76,.2); }
+.step2-label { font-size:10px; color:rgba(201,168,76,.5); letter-spacing:1.5px; margin-bottom:10px; font-weight:400; }
+.result-eyebrow { font-size:10px; letter-spacing:3px; color:rgba(201,168,76,.6); margin-bottom:12px; font-weight:400; }
+.result-name { font-size:12px; color:rgba(200,195,220,.6); margin-bottom:10px; font-weight:300; }
+.badge-row { display:flex; gap:8px; justify-content:center; margin-bottom:16px; flex-wrap:wrap; }
+.badge { display:inline-flex; align-items:center; background:rgba(201,168,76,.1); border:1px solid rgba(201,168,76,.35); border-radius:20px; padding:5px 14px; font-size:12px; font-weight:700; color:#C9A84C; }
+.result-combo { font-size:24px; font-weight:700; color:#C9A84C; margin-bottom:6px; line-height:1.3; }
+.result-combo span { color:#F6F6F8; }
+.result-tagline { font-size:12px; color:rgba(201,168,76,.7); margin-bottom:16px; font-style:italic; font-weight:300; }
+.result-desc { font-size:13px; line-height:1.8; color:rgba(200,195,220,.75); text-align:left; background:rgba(255,255,255,.04); border:1px solid rgba(201,168,76,.15); border-radius:12px; padding:14px 16px; font-weight:300; }
+.result-hint { margin-top:14px; font-size:12px; color:rgba(201,168,76,.6); font-style:italic; line-height:1.7; font-weight:300; }
+.event-section { padding:20px 20px 0; }
+.event-card { border-radius:14px; padding:14px 16px; margin-bottom:10px; }
+.event-card.share  { background:rgba(100,149,237,.08); border:1px solid rgba(100,149,237,.25); }
+.event-title { font-size:13px; font-weight:700; color:#C9A84C; margin-bottom:4px; }
+.event-card.share .event-title { color:#89b4fa; }
+.event-desc { font-size:12px; line-height:1.65; color:rgba(200,195,220,.65); font-weight:300; }
+.intro-section { padding:20px; }
+.section-title { font-size:10px; letter-spacing:3px; color:rgba(201,168,76,.6); text-align:center; margin-bottom:18px; font-weight:400; }
+.intro-card { background:rgba(255,255,255,.03); border:1px solid rgba(201,168,76,.15); border-radius:14px; padding:16px; margin-bottom:10px; }
+.intro-card .num { font-size:10px; font-weight:700; color:#C9A84C; letter-spacing:2px; margin-bottom:5px; }
+.intro-card .ctitle { font-size:14px; font-weight:700; color:#F6F6F8; margin-bottom:7px; }
+.intro-card .desc { font-size:12px; line-height:1.75; color:rgba(200,195,220,.6); font-weight:300; }
+.cta-section { padding:0 20px 44px; }
+.cta-section .cta-main { margin-bottom:12px; }
+.cta-secondary { width:100%; padding:14px; background:transparent; border:1.5px solid rgba(201,168,76,.4); border-radius:50px; color:#C9A84C; font-family:'Noto Sans KR',sans-serif; font-size:13px; font-weight:600; cursor:pointer; display:block; text-align:center; }
+.cta-small { text-align:center; font-size:11px; color:rgba(200,195,220,.35); margin-top:12px; line-height:1.6; font-weight:300; }
+</style>
+</head>
+<body>
+
+<!-- ════════════ VIEW 1: INDEX ════════════ -->
+<div id="v1" class="view active">
+  <div class="overlay"></div>
+  <div class="topbar">
+    <span class="logo">ASTROPILLAR</span>
+    <button class="signin-btn" onclick="goLogin()">Sign In</button>
+  </div>
+  <div class="inner">
+    <div class="eyebrow">EASTERN · WESTERN · DESTINY</div>
+    <div class="hero-copy">
+      The stars see your soul.<br>
+      BaZi sees your bones.<br>
+      <span>AstroPillar sees you whole.</span>
+    </div>
+    <div class="hero-sub">BaZi + Western Astrology — fused, in English.</div>
+    <span class="free-badge">✦ Sign up and get 1 FREE Credit</span>
+    <button class="cta-main" onclick="showView('v2')">✦ &nbsp;Discover My Destiny — Free</button>
+    <button class="cta-sub" onclick="goHoroscope()">Try Free Daily Horoscope →</button>
+    <div class="cta-note">No credit card required &nbsp;·&nbsp; Instant result</div>
+  </div>
+</div>
+
+<!-- ════════════ VIEW 2: FORM ════════════ -->
+<div id="v2" class="view">
+  <div class="form-wrap">
+    <div style="position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:rgba(13,13,43,0.95);border-bottom:1px solid rgba(201,168,76,.1);">
+      <span class="logo">ASTROPILLAR</span>
+      <button class="signin-btn" onclick="goLogin()">Sign In</button>
+    </div>
+    <div class="form-header">
+      <button class="back-btn" onclick="showView('v1')">← Back</button>
+      <div class="step-bar">
+        <div class="step-seg on"></div>
+        <div class="step-seg off"></div>
+        <span class="step-label">STEP 1 OF 2</span>
+      </div>
+      <div class="form-title">Enter your birth details</div>
+      <div class="form-sub">You're one minute away from your Cosmic Identity</div>
+    </div>
+    <div class="form-body">
+      <div class="field">
+        <label>YOUR NAME</label>
+        <input type="text" id="inp-name" placeholder="e.g. Alex" maxlength="30">
+      </div>
+      <div class="field">
+        <label>GENDER</label>
+        <div class="gender-row">
+          <div class="gender-btn" id="g-m" onclick="selectGender('M')">♂ Male</div>
+          <div class="gender-btn" id="g-f" onclick="selectGender('F')">♀ Female</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>DATE OF BIRTH</label>
+        <div class="date-row">
+          <select id="inp-year"><option value="">Year</option></select>
+          <select id="inp-month">
+            <option value="">Month</option>
+            <option value="1">1 · January</option><option value="2">2 · February</option><option value="3">3 · March</option><option value="4">4 · April</option><option value="5">5 · May</option><option value="6">6 · June</option><option value="7">7 · July</option><option value="8">8 · August</option><option value="9">9 · September</option><option value="10">10 · October</option><option value="11">11 · November</option><option value="12">12 · December</option>
+          </select>
+          <select id="inp-day">
+            <option value="">Day</option>
+            <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label>BIRTH HOUR <span style="color:rgba(200,195,220,.4);font-weight:300;font-size:10px;letter-spacing:0;">— helps make your result more precise</span></label>
+        <select id="inp-hour">
+          <option value="-1">Unknown</option>
+          <option value="0">00:00 ~ 01:00</option><option value="1">01:00 ~ 02:00</option><option value="2">02:00 ~ 03:00</option><option value="3">03:00 ~ 04:00</option><option value="4">04:00 ~ 05:00</option><option value="5">05:00 ~ 06:00</option><option value="6">06:00 ~ 07:00</option><option value="7">07:00 ~ 08:00</option><option value="8">08:00 ~ 09:00</option><option value="9">09:00 ~ 10:00</option><option value="10">10:00 ~ 11:00</option><option value="11">11:00 ~ 12:00</option><option value="12">12:00 ~ 13:00</option><option value="13">13:00 ~ 14:00</option><option value="14">14:00 ~ 15:00</option><option value="15">15:00 ~ 16:00</option><option value="16">16:00 ~ 17:00</option><option value="17">17:00 ~ 18:00</option><option value="18">18:00 ~ 19:00</option><option value="19">19:00 ~ 20:00</option><option value="20">20:00 ~ 21:00</option><option value="21">21:00 ~ 22:00</option><option value="22">22:00 ~ 23:00</option><option value="23">23:00 ~ 24:00</option>
+        </select>
+      </div>
+      <button class="cta-main-form" onclick="calculate()">✦ &nbsp;Reveal My Cosmic Identity</button>
+      <div class="privacy-lock"><span class="lock-icon">🔒</span> 100% Private. Never stored. Never shared.</div>
+      <div class="privacy-note">Your data is only used to calculate your chart.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ VIEW 3: RESULT ════════════ -->
+<div id="v3" class="view">
+  <div class="result-wrap">
+    <div style="position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:rgba(13,13,43,0.95);border-bottom:1px solid rgba(201,168,76,.1);">
+      <span class="logo">ASTROPILLAR</span>
+      <button class="signin-btn" onclick="goLogin()">Sign In</button>
+    </div>
+    <div class="result-hero">
+      <div class="step2-label">STEP 2 OF 2</div>
+      <div class="result-eyebrow">YOUR COSMIC IDENTITY</div>
+      <div class="result-name" id="r-name">—</div>
+      <div class="badge-row">
+        <div class="badge" id="r-zodiac-badge">Aries</div>
+        <div class="badge" id="r-dm-badge">Fierce Fire</div>
+      </div>
+      <div class="result-combo"><span id="r-zodiac">Aries</span> &times; <span id="r-daymaster">Fierce Fire</span></div>
+      <div class="result-tagline" id="r-tagline">"The Unstoppable"</div>
+      <div class="result-desc" id="r-desc">Your reading awaits.</div>
+      <div class="result-hint">This is only the beginning of your chart.</div>
+      <!-- ── Teaser 섹션 ── -->
+      <div style="margin-top:20px;border-top:1px solid rgba(201,168,76,.15);padding-top:20px;">
+        <div style="font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.5);font-weight:400;margin-bottom:14px;">YOUR CHART SIGNALS</div>
+        <div id="teaser-relationship" style="font-size:13px;line-height:1.8;color:rgba(200,195,220,.75);font-weight:300;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(201,168,76,.1);"></div>
+        <div id="teaser-money" style="font-size:13px;line-height:1.8;color:rgba(200,195,220,.75);font-weight:300;margin-bottom:20px;"></div>
+        <div style="font-size:13px;color:rgba(201,168,76,.8);font-style:italic;font-weight:400;margin-bottom:16px;line-height:1.6;">Your chart is already pointing at more than this.</div>
+        <button onclick="goSignup()" class="cta-main" style="font-size:14px;padding:14px;">Unlock My Full Chart — Free</button>
+        <div style="text-align:center;margin-top:10px;font-size:11px;color:rgba(200,195,220,.35);font-weight:300;">New members get 1 FREE Credit &nbsp;·&nbsp; No credit card required</div>
+      </div>
+    </div>
+    <div class="event-section">
+      <div class="event-card share">
+        <div class="event-title">Share your result 3 times → 1 FREE Credit</div>
+        <div class="event-desc">Share 3 times and earn a free reading. Let the stars speak for you.</div>
+      </div>
+    </div>
+    <div class="intro-section">
+      <div class="section-title">WHY ASTROPILLAR IS DIFFERENT</div>
+      <div class="intro-card">
+        <div class="num">01</div>
+        <div class="ctitle">Two ancient wisdoms. One reading.</div>
+        <div class="desc">Western astrology reads the sky. Eastern BaZi reads the energy of time. Most horoscopes give you one lens. AstroPillar gives you both — and the truth that only appears when they're fused together.</div>
+      </div>
+      <div class="intro-card">
+        <div class="num">02</div>
+        <div class="ctitle">Built on real data. Not guesswork.</div>
+        <div class="desc">AstroPillar calculates your chart using verified astronomical and traditional BaZi pillar data — precise, personalized, written specifically for you.</div>
+      </div>
+      <div class="intro-card">
+        <div class="num">03</div>
+        <div class="ctitle">Four ways to see your destiny</div>
+        <div class="desc" style="line-height:2.1;">
+          <strong style="color:#C9A84C;">Personal Fortune</strong> — your complete lifetime reading<br>
+          <strong style="color:#C9A84C;">Daily Fortune</strong> — your day, built around you<br>
+          <strong style="color:#C9A84C;">Compatibility</strong> — the cosmic truth about your relationships<br>
+          <strong style="color:#C9A84C;">Yearly Fortune</strong> — everything this year holds for you
+        </div>
+      </div>
+      <div class="intro-card">
+        <div class="num">04</div>
+        <div class="ctitle">Ask what you actually want to know</div>
+        <div class="desc">"Should I quit?" "Is this person right for me?" AstroPillar answers your real questions using your actual chart — not generic advice.</div>
+      </div>
+    </div>
+    <div class="cta-section">
+      <button class="cta-main" onclick="goSignup()">✦ &nbsp;Unlock My Full Chart — Free</button>
+      <button class="cta-secondary" onclick="goLogin()">Already have an account? Sign In</button>
+      <div class="cta-small">New members get 1 FREE Credit on signup.<br>No credit card required.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── GA4 트래킹 ── */
+function ga(name, params) {
+  try { gtag('event', name, params || {}); } catch(e) {}
+}
+
+/* ── 페이지 이동 (Bubble로) ── */
+var APP = 'https://app.astropillar.com';
+function goLogin()    { ga('login_attempt'); window.location.href = APP + '/login'; }
+function goSignup()   { ga('service_view', {service_type:'unlock_full_reading'}); window.location.href = APP + '/login'; }
+function goHoroscope(){ ga('service_view', {service_type:'horoscope'}); window.location.href = APP + '/today_fortune'; }
+
+/* ── 페이드 전환 ── */
+function showView(id) {
+  var cur  = document.querySelector('.view.active');
+  var next = document.getElementById(id);
+  if (cur === next) return;
+  cur.classList.remove('visible');
+  setTimeout(function(){
+    cur.classList.remove('active');
+    next.classList.add('active');
+    setTimeout(function(){
+      next.classList.add('visible');
+      window.scrollTo(0,0);
+      if (id === 'v1') { ga('view_1_landing'); }
+      else if (id === 'v2') { ga('view_2_form'); }
+      else if (id === 'v3') { ga('view_3_result'); }
+    }, 30);
+  }, 300);
+}
+
+/* ── 년도 동적 생성 ── */
+function initYears() {
+  var sel = document.getElementById('inp-year');
+  var curYear = new Date().getFullYear();
+  for (var y = curYear; y >= curYear - 90; y--) {
+    var opt = document.createElement('option');
+    opt.value = y; opt.textContent = y;
+    sel.appendChild(opt);
+  }
+}
+
+window.addEventListener('load', function(){
+  initYears();
+  ga('page_view', { page: 'index' });
+  ga('view_1_landing');
+  setTimeout(function(){ document.getElementById('v1').classList.add('visible'); }, 50);
+});
+
+/* ── 성별 ── */
+var selectedGender='';
+function selectGender(g){
+  selectedGender=g;
+  document.getElementById('g-m').classList.toggle('selected',g==='M');
+  document.getElementById('g-f').classList.toggle('selected',g==='F');
+}
+
+/* ── 별자리 ── */
+function getZodiac(m,d){
+  var cut=[20,20,21,20,21,21,23,23,23,23,22,22];
+  var names=[['Capricorn','Aquarius'],['Aquarius','Pisces'],['Pisces','Aries'],['Aries','Taurus'],['Taurus','Gemini'],['Gemini','Cancer'],['Cancer','Leo'],['Leo','Virgo'],['Virgo','Libra'],['Libra','Scorpio'],['Scorpio','Sagittarius'],['Sagittarius','Capricorn']];
+  return d>=cut[m-1]?names[m-1][1]:names[m-1][0];
+}
+
+/* ── 일간 (+9 오프셋, 검증완료) ── */
+function getDayMaster(year,month,day){
+  var a=Math.floor((14-month)/12),y=year+4800-a,mm=month+12*a-3;
+  var jdn=day+Math.floor((153*mm+2)/5)+365*y+Math.floor(y/4)-Math.floor(y/100)+Math.floor(y/400)-32045;
+  var s=['Fierce Wood','Flowing Wood','Fierce Fire','Flowing Fire','Fierce Earth','Flowing Earth','Fierce Metal','Flowing Metal','Fierce Water','Flowing Water'];
+  return s[((jdn%10)+9)%10];
+}
+
+var taglines={'Aries':{'Fierce Wood':'The Fearless Leader','Flowing Wood':'The Smart Warrior','Fierce Fire':'The Unstoppable','Flowing Fire':'The Passionate Soul','Fierce Earth':'The Sleeping Giant','Flowing Earth':'The Caring Force','Fierce Metal':'The Cold Blade','Flowing Metal':'The Ice Queen','Fierce Water':'The Tidal Force','Flowing Water':'The Mystic'},'Taurus':{'Fierce Wood':'The Patient Builder','Flowing Wood':'The Steady Creator','Fierce Fire':'The Hidden Volcano','Flowing Fire':'The Warm Anchor','Fierce Earth':'The Unshakeable','Flowing Earth':'The Gentle Giant','Fierce Metal':'The Iron Vault','Flowing Metal':'The Quiet Achiever','Fierce Water':'The Deep River','Flowing Water':'The Still Lake'},'Gemini':{'Fierce Wood':'The Spark Plug','Flowing Wood':'The Quick Mind','Fierce Fire':'The Wildfire','Flowing Fire':'The Twin Flame','Fierce Earth':'The Grounded Talker','Flowing Earth':'The Storyteller','Fierce Metal':'The Sharp Tongue','Flowing Metal':'The Silver Voice','Fierce Water':'The Shapeshifter','Flowing Water':'The Dream Weaver'},'Cancer':{'Fierce Wood':'The Protective Tree','Flowing Wood':'The Nurturing Vine','Fierce Fire':'The Fierce Protector','Flowing Fire':'The Warm Shell','Fierce Earth':'The Safe Harbor','Flowing Earth':'The Gentle Mother','Fierce Metal':'The Steel Shell','Flowing Metal':'The Pearl','Fierce Water':'The Deep Ocean','Flowing Water':'The Moonlit Sea'},'Leo':{'Fierce Wood':'The Royal Oak','Flowing Wood':'The Golden Willow','Fierce Fire':'The Sun Itself','Flowing Fire':'The Warm King','Fierce Earth':'The Mountain King','Flowing Earth':'The Generous Lion','Fierce Metal':'The Golden Crown','Flowing Metal':'The Radiant Star','Fierce Water':'The Ocean King','Flowing Water':'The Shining Current'},'Virgo':{'Fierce Wood':'The Precise Craftsman','Flowing Wood':'The Healing Herb','Fierce Fire':'The Analytical Flame','Flowing Fire':'The Quiet Torch','Fierce Earth':'The Master Builder','Flowing Earth':'The Gentle Healer','Fierce Metal':'The Surgical Blade','Flowing Metal':'The Fine Crystal','Fierce Water':'The Clear Spring','Flowing Water':'The Gentle Rain'},'Libra':{'Fierce Wood':'The Just Judge','Flowing Wood':'The Peacemaker','Fierce Fire':'The Bright Scale','Flowing Fire':'The Warm Diplomat','Fierce Earth':'The Fair Mountain','Flowing Earth':'The Gentle Balance','Fierce Metal':'The Balanced Sword','Flowing Metal':'The Silver Scale','Fierce Water':'The Clear Mirror','Flowing Water':'The Still Pond'},'Scorpio':{'Fierce Wood':'The Dark Forest','Flowing Wood':'The Ivy Queen','Fierce Fire':'The Phoenix','Flowing Fire':'The Hidden Flame','Fierce Earth':'The Volcanic Island','Flowing Earth':'The Quiet Depths','Fierce Metal':'The Scorpion Sting','Flowing Metal':'The Dark Jewel','Fierce Water':'The Abyss','Flowing Water':'The Shadow Current'},'Sagittarius':{'Fierce Wood':'The Arrow of Truth','Flowing Wood':'The Wandering Vine','Fierce Fire':'The Blazing Arrow','Flowing Fire':'The Guiding Light','Fierce Earth':'The Free Mountain','Flowing Earth':'The Open Field','Fierce Metal':'The Iron Arrow','Flowing Metal':'The Silver Bow','Fierce Water':'The River Explorer','Flowing Water':'The Dream Traveler'},'Capricorn':{'Fierce Wood':'The Ancient Tree','Flowing Wood':'The Patient Root','Fierce Fire':'The Mountain Torch','Flowing Fire':'The Steady Flame','Fierce Earth':'The Summit','Flowing Earth':'The Foundation','Fierce Metal':'The Iron Peak','Flowing Metal':'The Polished Stone','Fierce Water':'The Glacier','Flowing Water':'The Mountain Stream'},'Aquarius':{'Fierce Wood':'The Revolution','Flowing Wood':'The Idea Tree','Fierce Fire':'The Lightning','Flowing Fire':'The Electric Heart','Fierce Earth':'The Future Architect','Flowing Earth':'The Visionary','Fierce Metal':'The Circuit','Flowing Metal':'The Silver Wave','Fierce Water':'The Storm Bringer','Flowing Water':'The Cosmic Current'},'Pisces':{'Fierce Wood':'The Drifting Forest','Flowing Wood':'The Weeping Willow','Fierce Fire':'The Deep Lantern','Flowing Fire':'The Gentle Glow','Fierce Earth':'The Sunken Treasure','Flowing Earth':'The Warm Tide','Fierce Metal':'The Crystal Fish','Flowing Metal':'The Silver Scale','Fierce Water':'The Infinite Sea','Flowing Water':'The Dream Ocean'}};
+var dmDesc={'Fierce Wood':'Bold and growth-driven. You charge forward with fierce ambition — nothing holds back a Fierce Wood Day Master.','Flowing Wood':'Gentle but persistent. You bend with the wind but never break — always finding your way through.','Fierce Fire':'Pure, radiant energy. Your chart burns bright — you inspire everyone around you just by showing up.','Flowing Fire':'Warm and intuitive. You light the room without trying. Your inner fire is a lantern for those around you.','Fierce Earth':'Unshakeable and steadfast. Your Day Master anchors everything — you are the mountain others lean on.','Flowing Earth':'Nurturing and precise. Your power runs quietly and deeply — you care completely, and that changes people.','Fierce Metal':'Sharp, decisive, just. You see the truth others miss — and you say it without flinching.','Flowing Metal':'Refined and perceptive. Your elegance hides a razor edge. Beauty and strength, perfectly balanced.','Fierce Water':'Deep, powerful, relentless. Your ambition flows like a river carving through stone.','Flowing Water':'Intuitive and mysterious. You sense what others cannot see. Your wisdom rises from the depths.'};
+
+function calculate(){
+  var name=document.getElementById('inp-name').value.trim();
+  var year=parseInt(document.getElementById('inp-year').value);
+  var month=parseInt(document.getElementById('inp-month').value);
+  var day=parseInt(document.getElementById('inp-day').value);
+  if(!name){alert('Please enter your name.');return;}
+  if(!year){alert('Please select your birth year.');return;}
+  if(!month){alert('Please select your birth month.');return;}
+  if(!day){alert('Please select your birth day.');return;}
+  var zodiac=getZodiac(month,day);
+  var dm=getDayMaster(year,month,day);
+  var tl=(taglines[zodiac]&&taglines[zodiac][dm])?'"'+taglines[zodiac][dm]+'"':'"Your unique destiny awaits"';
+  var desc=zodiac+' meets '+dm+'. '+(dmDesc[dm]||'');
+  var displayName=name?name+"'s Cosmic Identity":"Your Cosmic Identity";
+  document.getElementById('r-name').textContent=displayName;
+  document.getElementById('r-zodiac-badge').textContent=zodiac;
+  document.getElementById('r-dm-badge').textContent=dm;
+  document.getElementById('r-zodiac').textContent=zodiac;
+  document.getElementById('r-daymaster').textContent=dm;
+  document.getElementById('r-tagline').textContent=tl;
+  document.getElementById('r-desc').textContent=desc;
+  initTeaser(name,zodiac,dm);
+  showView('v3');
+}
+
+var teaserSets=[{rel:"[Name], the pattern repeating in your relationships right now — your [Zodiac] sees it one way. Your [DayMaster] sees it differently. One of them is wrong.",money:"Your chart shows the window. Most people in your cycle miss it — not because it is hidden, but because they are facing the wrong direction."},{rel:"[Name], there is a connection your [DayMaster] can build that your [Zodiac] almost never sees coming. The problem is not finding it. It is not walking past it.",money:"You are in one of the more consequential cycles in your chart. What gets decided inside this window tends to define the next decade. You may be closer to that edge than you think."},{rel:"[Name], your [Zodiac] is drawn to depth. Your [DayMaster] is built to carry it. What your chart flags is what happens after you have been carrying it for too long.",money:"Your chart is not missing opportunity. It is missing the structure to hold what comes in. In this cycle, that gap has been compounding quietly."},{rel:"[Name], the pattern is not random. Your [Zodiac] reads the person. Your [DayMaster] feels the pressure they create. Those two readings are not pointing at the same thing.",money:"Your chart shows a significant financial shift in this cycle. The shift rewards positioning — not effort. What you set up now matters more than how hard you push."},{rel:"[Name], your chart can generate both intensity and real compatibility. The problem is they do not always arrive together — and in the moment, they feel identical.",money:"There is a financial decision in your chart that has been sitting unresolved. In this cycle, delay has a price. That price just went up."},{rel:"[Name], your [Zodiac] reads fast. Sometimes too fast. There is a signal in your relationship chart right now that is worth slowing down for.",money:"The financial pressure you are feeling this cycle may not mean what you think it means. Your chart flags a pattern of reading threat before the evidence is done speaking."},{rel:"[Name], your [DayMaster] absorbs. That is useful — until it is not. Your chart shows the absorption has been running longer than it should.",money:"Your chart is not asking you to work harder. It is asking you to stop building something that requires you to be overextended just to keep it standing."},{rel:"[Name], your [Zodiac] fills in the gaps with what it hopes is there. Your [DayMaster] knows the difference. It does not always get to speak first.",money:"Your chart shows financial movement coming into this cycle. The issue is not access. It is that your current position does not catch what is heading toward you."},{rel:"[Name], the same signal has appeared in your relationship chart more than once this cycle. Your [Zodiac] explains it away each time. At some point, the report has to be read.",money:"You are approaching the end of a cycle that has been your most consequential financial window. What moves before it closes tends to hold. What waits arrives with fewer options."},{rel:"[Name], your [Zodiac] and [DayMaster] can build something real — or something that looks like it. Your chart right now is asking which one the current relationship actually is.",money:"Your chart is signaling a recalibration. Not a crisis — a correction. The way you have been managing decisions may be working. But in this cycle, working and optimal are not the same thing."}];
+
+function initTeaser(name,zodiac,dm){
+  var idx=Math.floor(Math.random()*teaserSets.length);
+  var set=teaserSets[idx];
+  var displayName=name||'Your chart';
+  function fill(text){var t=text;while(t.indexOf('[Name]')!==-1){t=t.replace('[Name]',displayName);}while(t.indexOf('[Zodiac]')!==-1){t=t.replace('[Zodiac]',zodiac);}while(t.indexOf('[DayMaster]')!==-1){t=t.replace('[DayMaster]',dm);}return t;}
+  document.getElementById('teaser-relationship').innerHTML=fill(set.rel);
+  document.getElementById('teaser-money').innerHTML=fill(set.money);
+}
+</script>
+</body>
+</html>
