@@ -93,10 +93,18 @@ body {
   font-weight:400; display:block; width:100%; text-align:center;
 }
 .cta-note { margin-top:10px; font-size:11px; color:rgba(200,195,220,.35); font-weight:300; text-align:center; }
-.review-box { background:rgba(201,168,76,.05); border:1px solid rgba(201,168,76,.15); border-radius:14px; padding:16px; margin-top:20px; width:100%; }
+.review-box { background:rgba(201,168,76,.05); border:1px solid rgba(201,168,76,.15); border-radius:14px; padding:16px; margin-top:12px; width:100%; }
+.review-box:first-of-type { margin-top:20px; }
 .review-label { font-size:10px; color:rgba(201,168,76,.5); letter-spacing:2px; margin-bottom:10px; font-weight:400; }
 .review-text { font-family:'Playfair Display',Georgia,serif; font-size:13px; font-style:italic; color:rgba(200,195,220,.75); line-height:1.7; margin-bottom:8px; }
 .review-author { font-size:11px; color:rgba(201,168,76,.6); }
+.why-section { width:100%; margin-top:24px; padding-top:20px; border-top:1px solid rgba(201,168,76,.1); }
+.why-label { font-size:9px; letter-spacing:3px; color:rgba(201,168,76,.4); text-align:center; margin-bottom:16px; font-weight:400; }
+.why-item { display:flex; align-items:flex-start; gap:12px; margin-bottom:14px; }
+.why-dot { width:20px; height:20px; border-radius:50%; background:rgba(201,168,76,.1); border:1px solid rgba(201,168,76,.3); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+.why-dot::after { content:''; width:6px; height:6px; border-radius:50%; background:#C9A84C; display:block; }
+.why-title { font-family:'Playfair Display',Georgia,serif; font-size:14px; color:#F6F6F8; margin-bottom:3px; }
+.why-desc { font-size:11px; color:rgba(200,195,220,.5); font-weight:300; line-height:1.6; }
 
 /* ══════════════════════════════
    VIEW 2 : FORM
@@ -243,11 +251,45 @@ body {
 
     <button class="cta-sub" onclick="goHoroscope()">Try Free Daily Horoscope →</button>
 
-    <!-- 리뷰 -->
+    <!-- 리뷰 3개 -->
     <div class="review-box">
       <div class="review-label">WHAT READERS SAY</div>
       <div class="review-text">"This literally told me why my money never stays. It fused both charts and finally made sense."</div>
       <div class="review-author">— Sarah K., United Kingdom &nbsp;★★★★★</div>
+    </div>
+    <div class="review-box">
+      <div class="review-text">"I had no idea why we kept clashing. AstroPillar showed me exactly where our energies conflict — and how to stop fighting it."</div>
+      <div class="review-author">— Emily R., United States &nbsp;★★★★★</div>
+    </div>
+    <div class="review-box">
+      <div class="review-text">"I was stuck for two years. This reading told me which direction was actually mine. I finally stopped second-guessing myself."</div>
+      <div class="review-author">— Mia L., Philippines &nbsp;★★★★★</div>
+    </div>
+
+    <!-- WHY ASTROPILLAR -->
+    <div class="why-section">
+      <div class="why-label">WHY ASTROPILLAR</div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <div class="why-title">Two systems. One truth.</div>
+          <div class="why-desc">BaZi + Western Astrology fused — not two separate reports.</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <div class="why-title">Personalized, not generic.</div>
+          <div class="why-desc">Your exact birth data. Your actual patterns.</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-dot"></div>
+        <div>
+          <div class="why-title">Done in 60 seconds.</div>
+          <div class="why-desc">Name, birthday, birth hour. Cosmic identity appears instantly.</div>
+        </div>
+      </div>
     </div>
 
   </div>
