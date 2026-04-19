@@ -25,33 +25,38 @@ body {
 
 /* ── 페이드 전환 ── */
 .view { display:none; min-height:100vh; flex-direction:column; opacity:0; transition:opacity 0.35s ease; }
-.view.active { display:flex; }
+.view.active { display:flex; justify-content:center; }
 .view.visible { opacity:1; }
 
 /* ══════════════════════════════
    VIEW 1 : INDEX (sajutight 스타일)
 ══════════════════════════════ */
-#v1 {
+#v1 { background:#07071a; }
+.v1-wrap {
   position:relative;
-  height:100vh; max-height:100vh; overflow:hidden;
-  background:#07071a;
-  justify-content:flex-end; align-items:center;
+  width:100%; max-width:390px;
+  min-height:100vh;
+  flex-shrink:0;
+  display:flex; flex-direction:column;
+  margin:0 auto;
 }
 #v1 .char-img {
-  position:absolute; inset:0;
-  width:100%; height:100%;
-  object-fit:cover; object-position:center 35%;
+  display:block;
+  position:relative; z-index:1;
+  width:390px; height:auto;
+  left:50%; transform:translateX(-50%);
 }
 #v1 .overlay {
-  position:absolute; inset:0;
+  position:absolute; inset:0; z-index:2;
   background:linear-gradient(to bottom,
-    rgba(7,7,26,.25) 0%,
-    rgba(7,7,26,.15) 35%,
-    rgba(7,7,26,.70) 70%,
-    rgba(7,7,26,.97) 100%);
+    rgba(7,7,26,1) 0%,
+    rgba(7,7,26,0) 12%,
+    rgba(7,7,26,0) 72%,
+    rgba(7,7,26,1) 100%);
+  pointer-events:none;
 }
 .topbar {
-  position:fixed; top:0; left:0; right:0; z-index:100;
+  position:absolute; top:0; left:0; right:0; z-index:100;
   display:flex; justify-content:space-between; align-items:center;
   padding:16px 22px;
   background:linear-gradient(to bottom,rgba(7,7,26,.65),transparent);
@@ -66,9 +71,11 @@ body {
 
 /* 상단 타이틀 + 큰 제목 */
 .v1-top {
-  position:absolute; top:0; left:0; right:0; z-index:2;
-  padding:80px 20px 0;
+  position:relative; z-index:10;
+  padding:62px 20px 10px;
   text-align:center;
+  background:#07071a;
+  flex-shrink:0;
 }
 .v1-eyebrow {
   font-size:13px; color:rgba(240,235,255,.85); font-weight:400;
@@ -95,7 +102,7 @@ body {
   white-space:nowrap;
   box-shadow:0 2px 12px rgba(0,0,0,.3);
 }
-.bubble-1 { top:22%; left:4%; animation:float1 3s ease-in-out infinite; }
+.bubble-1 { top:48%; left:4%; animation:float1 3s ease-in-out infinite; }
 .bubble-2 { top:52%; right:4%; animation:float2 4s ease-in-out infinite; }
 .bubble-3 { top:68%; left:4%; animation:float1 3.5s ease-in-out infinite; }
 
@@ -108,14 +115,12 @@ body {
   50%      { transform:translateX(-7px); }
 }
 
-/* 하단 CTA 영역 — 항상 화면 하단에 고정 */
+/* 하단 CTA 영역 */
 #v1 .inner {
-  position:fixed; bottom:0; left:0; right:0; z-index:4;
-  max-width:390px; margin:0 auto;
-  padding:0 20px 28px;
+  position:relative; z-index:4;
+  padding:10px 20px 28px;
   display:flex; flex-direction:column;
   align-items:center;
-  background:linear-gradient(to top, rgba(7,7,26,1) 70%, transparent 100%);
 }
 
 /* 롤링 문구 */
@@ -281,10 +286,7 @@ body {
 
 <!-- ════════════ VIEW 1: INDEX ════════════ -->
 <div id="v1" class="view active">
-
-  <!-- 캐릭터 이미지 -->
-  <img class="char-img" src="https://raw.githubusercontent.com/hellojunpil/astropillar_images/main/p_1_main.webp" alt="">
-  <div class="overlay"></div>
+<div class="v1-wrap">
 
   <!-- 탑바 -->
   <div class="topbar">
@@ -292,21 +294,23 @@ body {
     <button class="signin-btn" onclick="goLogin()">Sign In</button>
   </div>
 
-  <!-- 상단 타이틀 + 큰 제목 -->
+  <!-- 제목 (이미지 위) -->
   <div class="v1-top">
     <div class="v1-eyebrow">Where the stars meet your fate.</div>
     <div class="v1-title">ASTROPILLAR</div>
   </div>
 
-  <!-- 떠다니는 버블 3개 -->
-  <div class="bubble bubble-1">My toxic trait 😈</div>
-  <div class="bubble bubble-2">When will I meet them? 💕</div>
-  <div class="bubble bubble-3">What my stars hide 🌌</div>
+  <!-- 이미지 + 오버레이 + 버블 -->
+  <div style="position:relative; flex-shrink:0;">
+    <img class="char-img" src="https://raw.githubusercontent.com/hellojunpil/astropillar_images/main/p_1_main.webp" alt="">
+    <div class="overlay"></div>
+    <div class="bubble bubble-1">My toxic trait 😈</div>
+    <div class="bubble bubble-2">When will I meet them? 💕</div>
+    <div class="bubble bubble-3">What my stars hide 🌌</div>
+  </div>
 
-  <!-- 하단 CTA 영역 -->
+  <!-- 하단 CTA -->
   <div class="inner">
-
-    <!-- 롤링 문구 -->
     <div class="rolling-wrap">
       <div class="rolling-text">
         <div>Was I always the one who cared more?</div>
@@ -315,17 +319,14 @@ body {
         <div>Why do I keep doing this to myself?</div>
       </div>
     </div>
-
-    <!-- CTA 버튼 -->
     <button class="cta-main" onclick="showView('v2')">✦ &nbsp;Read My Stars &amp; Fate — Free</button>
     <div class="cta-note">No credit card &nbsp;·&nbsp; No sign-up required &nbsp;·&nbsp; Instant result</div>
-
-    <!-- 카운터 -->
     <div class="counter-wrap">
       <span class="counter-num" id="counter-num">10,847</span> people revealed their chart
     </div>
-
   </div>
+
+</div>
 </div>
 
 <!-- ════════════ VIEW 2: FORM ════════════ -->
