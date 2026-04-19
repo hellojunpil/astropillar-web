@@ -14,7 +14,7 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 html, body { width:100%; overflow-x:hidden; }
@@ -29,19 +29,25 @@ body {
 .view.visible { opacity:1; }
 
 /* ══════════════════════════════
-   VIEW 1 : INDEX
+   VIEW 1 : INDEX (sajutight 스타일)
 ══════════════════════════════ */
 #v1 {
-  position:relative; min-height:100vh;
-  background:url('https://raw.githubusercontent.com/hellojunpil/astropillar_images/main/screen.png') center top/cover no-repeat;
-  justify-content:center; align-items:center;
+  position:relative;
+  height:100vh; max-height:100vh; overflow:hidden;
+  background:#07071a;
+  justify-content:flex-end; align-items:center;
+}
+#v1 .char-img {
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; object-position:center 35%;
 }
 #v1 .overlay {
   position:absolute; inset:0;
   background:linear-gradient(to bottom,
-    rgba(7,7,26,.50) 0%,
-    rgba(7,7,26,.62) 40%,
-    rgba(7,7,26,.90) 75%,
+    rgba(7,7,26,.25) 0%,
+    rgba(7,7,26,.15) 35%,
+    rgba(7,7,26,.70) 70%,
     rgba(7,7,26,.97) 100%);
 }
 .topbar {
@@ -58,27 +64,77 @@ body {
 }
 .signin-btn:active { background:#C9A84C; color:#16213E; }
 
-#v1 .inner {
-  position:relative; z-index:1;
-  width:100%; max-width:390px; margin:0 auto;
-  padding:80px 28px 60px;
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  min-height:100vh;
+/* 상단 타이틀 + 큰 제목 */
+.v1-top {
+  position:absolute; top:0; left:0; right:0; z-index:2;
+  padding:80px 20px 0;
+  text-align:center;
 }
-.eyebrow { color:rgba(201,168,76,.75); font-size:9px; letter-spacing:4px; margin-bottom:16px; font-weight:400; text-align:center; }
-.trust-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(201,168,76,.08); border:1px solid rgba(201,168,76,.25); border-radius:20px; padding:5px 14px; margin-bottom:20px; }
-.trust-badge .stars { color:#C9A84C; font-size:11px; }
-.trust-badge .label { color:rgba(201,168,76,.8); font-size:10px; letter-spacing:0.5px; font-weight:400; }
-.hero-copy { font-family:'Playfair Display',Georgia,serif; font-size:24px; font-weight:400; line-height:1.7; color:rgba(240,235,255,.95); margin-bottom:8px; text-align:center; }
-.hero-copy span { color:#C9A84C; font-style:italic; }
-.hero-sub { font-size:12px; color:rgba(200,195,220,.5); margin-bottom:20px; font-weight:300; text-align:center; }
-.stat-row { display:flex; justify-content:center; gap:20px; margin-bottom:28px; }
-.stat-item { text-align:center; }
-.stat-num { font-family:'Playfair Display',Georgia,serif; color:#C9A84C; font-size:20px; font-weight:700; line-height:1.2; }
-.stat-label { color:rgba(200,195,220,.45); font-size:9px; letter-spacing:1.5px; font-weight:400; }
-.stat-divider { width:1px; background:rgba(201,168,76,.2); }
-.free-badge { font-size:11px; color:rgba(201,168,76,.9); margin-bottom:16px; font-weight:500; text-align:center; display:block; }
+.v1-eyebrow {
+  font-size:13px; color:rgba(240,235,255,.85); font-weight:400;
+  letter-spacing:0.3px; line-height:1.5; margin-bottom:6px;
+  text-shadow:0 1px 8px rgba(0,0,0,.8);
+}
+.v1-title {
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:54px; font-weight:700; line-height:1.0;
+  color:#F6F6F8; letter-spacing:2px;
+  text-shadow:0 2px 16px rgba(0,0,0,.9);
+}
+
+/* 떠다니는 버블 */
+.bubble {
+  position:absolute; z-index:3;
+  background:rgba(0,0,0,.58);
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:20px;
+  padding:7px 14px;
+  font-size:13px; color:#fff; font-weight:400;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  white-space:nowrap;
+  box-shadow:0 2px 12px rgba(0,0,0,.3);
+}
+.bubble-1 { top:22%; left:4%; animation:float1 3s ease-in-out infinite; }
+.bubble-2 { top:52%; right:4%; animation:float2 4s ease-in-out infinite; }
+.bubble-3 { top:68%; left:4%; animation:float1 3.5s ease-in-out infinite; }
+
+@keyframes float1 {
+  0%,100% { transform:translateY(0); }
+  50%      { transform:translateY(-8px); }
+}
+@keyframes float2 {
+  0%,100% { transform:translateX(0); }
+  50%      { transform:translateX(-7px); }
+}
+
+/* 하단 CTA 영역 — 항상 화면 하단에 고정 */
+#v1 .inner {
+  position:fixed; bottom:0; left:0; right:0; z-index:4;
+  max-width:390px; margin:0 auto;
+  padding:0 20px 28px;
+  display:flex; flex-direction:column;
+  align-items:center;
+  background:linear-gradient(to top, rgba(7,7,26,1) 70%, transparent 100%);
+}
+
+/* 롤링 문구 */
+.rolling-wrap {
+  height:22px; overflow:hidden; margin-bottom:10px; width:100%; text-align:center;
+}
+.rolling-text {
+  font-size:12px; color:rgba(200,195,220,.75); font-weight:300;
+  line-height:22px; font-style:italic;
+  animation:rollUp 12s steps(1) infinite;
+}
+@keyframes rollUp {
+  0%   { transform:translateY(0); }
+  25%  { transform:translateY(-22px); }
+  50%  { transform:translateY(-44px); }
+  75%  { transform:translateY(-66px); }
+  100% { transform:translateY(0); }
+}
+
 .cta-main {
   width:100%; background:#C9A84C; color:#16213E;
   font-family:'Noto Sans KR',sans-serif; font-size:15px; font-weight:700;
@@ -93,6 +149,28 @@ body {
   font-weight:400; display:block; width:100%; text-align:center;
 }
 .cta-note { margin-top:10px; font-size:11px; color:rgba(200,195,220,.35); font-weight:300; text-align:center; }
+
+/* 카운터 */
+.counter-wrap {
+  margin-top:10px; text-align:center;
+  font-size:13px; color:rgba(200,195,220,.55); font-weight:300;
+}
+.counter-num { color:rgba(201,168,76,.85); font-weight:600; }
+
+/* 아래 뷰 CSS 재사용을 위한 더미 클래스 유지 */
+.eyebrow { color:rgba(201,168,76,.75); font-size:9px; letter-spacing:4px; margin-bottom:16px; font-weight:400; text-align:center; }
+.trust-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(201,168,76,.08); border:1px solid rgba(201,168,76,.25); border-radius:20px; padding:5px 14px; margin-bottom:20px; }
+.trust-badge .stars { color:#C9A84C; font-size:11px; }
+.trust-badge .label { color:rgba(201,168,76,.8); font-size:10px; letter-spacing:0.5px; font-weight:400; }
+.hero-copy { font-family:'Playfair Display',Georgia,serif; font-size:24px; font-weight:400; line-height:1.7; color:rgba(240,235,255,.95); margin-bottom:8px; text-align:center; }
+.hero-copy span { color:#C9A84C; font-style:italic; }
+.hero-sub { font-size:12px; color:rgba(200,195,220,.5); margin-bottom:20px; font-weight:300; text-align:center; }
+.stat-row { display:flex; justify-content:center; gap:20px; margin-bottom:28px; }
+.stat-item { text-align:center; }
+.stat-num { font-family:'Playfair Display',Georgia,serif; color:#C9A84C; font-size:20px; font-weight:700; line-height:1.2; }
+.stat-label { color:rgba(200,195,220,.45); font-size:9px; letter-spacing:1.5px; font-weight:400; }
+.stat-divider { width:1px; background:rgba(201,168,76,.2); }
+.free-badge { font-size:11px; color:rgba(201,168,76,.9); margin-bottom:16px; font-weight:500; text-align:center; display:block; }
 .review-box { background:rgba(201,168,76,.05); border:1px solid rgba(201,168,76,.15); border-radius:14px; padding:16px; margin-top:12px; width:100%; }
 .review-box:first-of-type { margin-top:20px; }
 .review-label { font-size:10px; color:rgba(201,168,76,.5); letter-spacing:2px; margin-bottom:10px; font-weight:400; }
@@ -203,93 +281,48 @@ body {
 
 <!-- ════════════ VIEW 1: INDEX ════════════ -->
 <div id="v1" class="view active">
+
+  <!-- 캐릭터 이미지 -->
+  <img class="char-img" src="https://raw.githubusercontent.com/hellojunpil/astropillar_images/main/p_1_main.webp" alt="">
   <div class="overlay"></div>
+
+  <!-- 탑바 -->
   <div class="topbar">
     <span class="logo">ASTROPILLAR</span>
     <button class="signin-btn" onclick="goLogin()">Sign In</button>
   </div>
+
+  <!-- 상단 타이틀 + 큰 제목 -->
+  <div class="v1-top">
+    <div class="v1-eyebrow">Where the stars meet your fate.</div>
+    <div class="v1-title">ASTROPILLAR</div>
+  </div>
+
+  <!-- 떠다니는 버블 3개 -->
+  <div class="bubble bubble-1">My toxic trait 😈</div>
+  <div class="bubble bubble-2">When will I meet them? 💕</div>
+  <div class="bubble bubble-3">What my stars hide 🌌</div>
+
+  <!-- 하단 CTA 영역 -->
   <div class="inner">
 
-    <!-- 신뢰 배지 -->
-    <div class="trust-badge">
-      <span class="stars">★★★★★</span>
-      <span class="label">Trusted by 10,000+ readers worldwide</span>
-    </div>
-
-    <div class="eyebrow">EASTERN · WESTERN · DESTINY</div>
-
-    <!-- 히어로 카피 — Playfair Display -->
-    <div class="hero-copy">
-      The stars see your soul.<br>
-      BaZi sees your bones.<br>
-      <span>AstroPillar sees you whole.</span>
-    </div>
-
-    <div class="hero-sub">The only service fusing Eastern BaZi with Western Astrology — in one reading.</div>
-
-    <!-- 적은 노력 강조 — 3 stats -->
-    <div class="stat-row">
-      <div class="stat-item">
-        <div class="stat-num">60s</div>
-        <div class="stat-label">TO COMPLETE</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <div class="stat-num">FREE</div>
-        <div class="stat-label">TO START</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat-item">
-        <div class="stat-num">3</div>
-        <div class="stat-label">QUESTIONS</div>
+    <!-- 롤링 문구 -->
+    <div class="rolling-wrap">
+      <div class="rolling-text">
+        <div>Was I always the one who cared more?</div>
+        <div>I work so hard. Why does nothing change?</div>
+        <div>Is this person real, or am I fooling myself?</div>
+        <div>Why do I keep doing this to myself?</div>
       </div>
     </div>
 
-    <!-- 강한 CTA -->
-    <button class="cta-main" onclick="showView('v2')">✦ &nbsp;Reveal My Cosmic Identity — Free</button>
+    <!-- CTA 버튼 -->
+    <button class="cta-main" onclick="showView('v2')">✦ &nbsp;Read My Stars &amp; Fate — Free</button>
     <div class="cta-note">No credit card &nbsp;·&nbsp; No sign-up required &nbsp;·&nbsp; Instant result</div>
 
-    <button class="cta-sub" onclick="goHoroscope()">Try Free Daily Horoscope →</button>
-
-    <!-- 리뷰 3개 -->
-    <div class="review-box">
-      <div class="review-label">WHAT READERS SAY</div>
-      <div class="review-text">"This literally told me why my money never stays. It fused both charts and finally made sense."</div>
-      <div class="review-author">— Sarah K., United Kingdom &nbsp;★★★★★</div>
-    </div>
-    <div class="review-box">
-      <div class="review-text">"I had no idea why we kept clashing. AstroPillar showed me exactly where our energies conflict — and how to stop fighting it."</div>
-      <div class="review-author">— Emily R., United States &nbsp;★★★★★</div>
-    </div>
-    <div class="review-box">
-      <div class="review-text">"I was stuck for two years. This reading told me which direction was actually mine. I finally stopped second-guessing myself."</div>
-      <div class="review-author">— Mia L., Philippines &nbsp;★★★★★</div>
-    </div>
-
-    <!-- WHY ASTROPILLAR -->
-    <div class="why-section">
-      <div class="why-label">WHY ASTROPILLAR</div>
-      <div class="why-item">
-        <div class="why-dot"></div>
-        <div>
-          <div class="why-title">Two systems. One truth.</div>
-          <div class="why-desc">BaZi + Western Astrology fused — not two separate reports.</div>
-        </div>
-      </div>
-      <div class="why-item">
-        <div class="why-dot"></div>
-        <div>
-          <div class="why-title">Personalized, not generic.</div>
-          <div class="why-desc">Your exact birth data. Your actual patterns.</div>
-        </div>
-      </div>
-      <div class="why-item">
-        <div class="why-dot"></div>
-        <div>
-          <div class="why-title">Done in 60 seconds.</div>
-          <div class="why-desc">Name, birthday, birth hour. Cosmic identity appears instantly.</div>
-        </div>
-      </div>
+    <!-- 카운터 -->
+    <div class="counter-wrap">
+      <span class="counter-num" id="counter-num">10,847</span> people revealed their chart
     </div>
 
   </div>
@@ -465,11 +498,26 @@ function initYears() {
   }
 }
 
+/* ── 카운터 ── */
+var counterVal = 10847;
+function formatCounter(n) {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+function tickCounter() {
+  var add = Math.floor(Math.random() * 4) + 1; // 1~4
+  counterVal += add;
+  var el = document.getElementById('counter-num');
+  if (el) el.textContent = formatCounter(counterVal);
+  var delay = 1200 + Math.random() * 800; // 1.2~2초
+  setTimeout(tickCounter, delay);
+}
+
 window.addEventListener('load', function(){
   initYears();
   ga('page_view', { page: 'index' });
   ga('view_1_landing');
   setTimeout(function(){ document.getElementById('v1').classList.add('visible'); }, 50);
+  setTimeout(tickCounter, 1500);
 });
 
 /* ── 성별 ── */
