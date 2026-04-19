@@ -109,21 +109,9 @@ body {
 /* ══════════════════════════════
    VIEW 2 : FORM
 ══════════════════════════════ */
-#v2 {
-  background:url('https://raw.githubusercontent.com/hellojunpil/astropillar_images/main/screen.png') center top/cover no-repeat;
-  background-attachment:fixed;
-  position:relative;
-}
-#v2::before {
-  content:'';
-  position:fixed;
-  inset:0;
-  background:rgba(7,7,26,.83);
-  z-index:0;
-  pointer-events:none;
-}
-.form-wrap { max-width:390px; margin:0 auto; width:100%; position:relative; z-index:1; }
-.form-header { background:rgba(7,7,26,.35); backdrop-filter:blur(10px); padding:20px 20px 16px; border-bottom:1px solid rgba(201,168,76,.15); }
+#v2 { background:#07071a; }
+.form-wrap { max-width:390px; margin:0 auto; width:100%; }
+.form-header { background:linear-gradient(to bottom,#0d0d2b,#07071a); padding:20px 20px 16px; border-bottom:1px solid rgba(201,168,76,.15); }
 .back-btn { background:none; border:none; color:rgba(201,168,76,.7); font-family:'Noto Sans KR',sans-serif; font-size:13px; cursor:pointer; padding:0; margin-bottom:14px; display:block; }
 .step-bar { display:flex; align-items:center; gap:6px; margin-bottom:14px; }
 .step-seg { height:3px; flex:1; border-radius:2px; }
@@ -321,8 +309,8 @@ body {
         <div class="step-seg off"></div>
         <span class="step-label">STEP 1 OF 2</span>
       </div>
-      <div class="form-title">The cosmos is listening.</div>
-      <div class="form-sub">Your birth moment holds your entire blueprint — let's read it.</div>
+      <div class="form-title">Enter your birth details</div>
+      <div class="form-sub">You're one minute away from your Cosmic Identity</div>
     </div>
     <div class="form-body">
       <div class="field">
