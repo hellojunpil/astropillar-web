@@ -125,25 +125,25 @@ body {
 
 /* 롤링 문구 */
 .rolling-wrap {
-  height:22px; overflow:hidden; margin-bottom:10px; width:100%; text-align:center;
+  height:20px; overflow:hidden; margin-bottom:5px; width:100%; text-align:center;
 }
 .rolling-text {
-  font-size:12px; color:rgba(200,195,220,.75); font-weight:300;
-  line-height:22px; font-style:italic;
+  font-size:11px; color:rgba(200,195,220,.75); font-weight:300;
+  line-height:20px; font-style:italic;
   animation:rollUp 12s steps(1) infinite;
 }
 @keyframes rollUp {
   0%   { transform:translateY(0); }
-  25%  { transform:translateY(-22px); }
-  50%  { transform:translateY(-44px); }
-  75%  { transform:translateY(-66px); }
+  25%  { transform:translateY(-20px); }
+  50%  { transform:translateY(-40px); }
+  75%  { transform:translateY(-60px); }
   100% { transform:translateY(0); }
 }
 
 .cta-main {
   width:100%; background:#C9A84C; color:#16213E;
   font-family:'Noto Sans KR',sans-serif; font-size:15px; font-weight:700;
-  padding:16px; border-radius:50px; border:none; cursor:pointer;
+  padding:13px; border-radius:50px; border:none; cursor:pointer;
   display:block; text-align:center; transition:transform .1s;
 }
 .cta-main:active { transform:scale(0.98); }
@@ -153,12 +153,12 @@ body {
   background:none; border:none; font-family:'Noto Sans KR',sans-serif;
   font-weight:400; display:block; width:100%; text-align:center;
 }
-.cta-note { margin-top:10px; font-size:11px; color:rgba(200,195,220,.35); font-weight:300; text-align:center; }
+.cta-note { display:none; }
 
 /* 카운터 */
 .counter-wrap {
-  margin-top:10px; text-align:center;
-  font-size:13px; color:rgba(200,195,220,.55); font-weight:300;
+  margin-top:6px; text-align:center;
+  font-size:12px; color:rgba(200,195,220,.55); font-weight:300;
 }
 .counter-num { color:rgba(201,168,76,.85); font-weight:600; }
 
