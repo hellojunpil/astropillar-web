@@ -35,23 +35,24 @@ body {
 .v1-wrap {
   position:relative;
   width:100%; max-width:390px;
-  min-height:100vh;
+  height:100vh;
   flex-shrink:0;
-  display:flex; flex-direction:column;
   margin:0 auto;
+  overflow:hidden;
 }
 #v1 .char-img {
-  display:block;
-  position:relative; z-index:1;
-  width:390px; height:auto;
-  left:50%; transform:translateX(-50%);
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; object-position:center 35%;
+  z-index:1;
 }
 #v1 .overlay {
   position:absolute; inset:0; z-index:2;
   background:linear-gradient(to bottom,
-    rgba(7,7,26,1) 0%,
-    rgba(7,7,26,0) 12%,
-    rgba(7,7,26,0) 72%,
+    rgba(7,7,26,.6) 0%,
+    rgba(7,7,26,.0) 25%,
+    rgba(7,7,26,.0) 60%,
+    rgba(7,7,26,.85) 85%,
     rgba(7,7,26,1) 100%);
   pointer-events:none;
 }
@@ -69,24 +70,22 @@ body {
 }
 .signin-btn:active { background:#C9A84C; color:#16213E; }
 
-/* 상단 타이틀 + 큰 제목 */
+/* 상단 타이틀 + 큰 제목 — 이미지 위에 겹침 */
 .v1-top {
-  position:relative; z-index:10;
-  padding:62px 20px 10px;
+  position:absolute; top:0; left:0; right:0; z-index:10;
+  padding:56px 20px 0;
   text-align:center;
-  background:#07071a;
-  flex-shrink:0;
 }
 .v1-eyebrow {
-  font-size:13px; color:rgba(240,235,255,.85); font-weight:400;
-  letter-spacing:0.3px; line-height:1.5; margin-bottom:6px;
-  text-shadow:0 1px 8px rgba(0,0,0,.8);
+  font-size:12px; color:rgba(240,235,255,.85); font-weight:400;
+  letter-spacing:0.3px; line-height:1.5; margin-bottom:4px;
+  text-shadow:0 1px 8px rgba(0,0,0,.9);
 }
 .v1-title {
   font-family:'Cormorant Garamond',Georgia,serif;
-  font-size:54px; font-weight:700; line-height:1.0;
+  font-size:38px; font-weight:700; line-height:1.0;
   color:#F6F6F8; letter-spacing:2px;
-  text-shadow:0 2px 16px rgba(0,0,0,.9);
+  text-shadow:0 2px 20px rgba(0,0,0,1);
 }
 
 /* 떠다니는 버블 */
@@ -115,12 +114,13 @@ body {
   50%      { transform:translateX(-7px); }
 }
 
-/* 하단 CTA 영역 */
+/* 하단 CTA 영역 — 이미지 위에 겹쳐서 하단 고정 */
 #v1 .inner {
-  position:relative; z-index:4;
-  padding:10px 20px 28px;
+  position:absolute; bottom:0; left:0; right:0; z-index:10;
+  padding:0 20px 28px;
   display:flex; flex-direction:column;
   align-items:center;
+  background:linear-gradient(to top, rgba(7,7,26,1) 75%, transparent 100%);
 }
 
 /* 롤링 문구 */
@@ -288,26 +288,26 @@ body {
 <div id="v1" class="view active">
 <div class="v1-wrap">
 
+  <!-- 배경 이미지 -->
+  <img class="char-img" src="https://raw.githubusercontent.com/hellojunpil/astropillar_images/main/p_1_main.webp" alt="">
+  <div class="overlay"></div>
+
   <!-- 탑바 -->
   <div class="topbar">
     <span class="logo">ASTROPILLAR</span>
     <button class="signin-btn" onclick="goLogin()">Sign In</button>
   </div>
 
-  <!-- 제목 (이미지 위) -->
+  <!-- 상단 제목 -->
   <div class="v1-top">
     <div class="v1-eyebrow">Where the stars meet your fate.</div>
     <div class="v1-title">ASTROPILLAR</div>
   </div>
 
-  <!-- 이미지 + 오버레이 + 버블 -->
-  <div style="position:relative; flex-shrink:0;">
-    <img class="char-img" src="https://raw.githubusercontent.com/hellojunpil/astropillar_images/main/p_1_main.webp" alt="">
-    <div class="overlay"></div>
-    <div class="bubble bubble-1">My toxic trait 😈</div>
-    <div class="bubble bubble-2">When will I meet them? 💕</div>
-    <div class="bubble bubble-3">What my stars hide 🌌</div>
-  </div>
+  <!-- 떠다니는 버블 -->
+  <div class="bubble bubble-1">My toxic trait 😈</div>
+  <div class="bubble bubble-2">When will I meet them? 💕</div>
+  <div class="bubble bubble-3">What my stars hide 🌌</div>
 
   <!-- 하단 CTA -->
   <div class="inner">
